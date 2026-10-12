@@ -1,0 +1,843 @@
+/* ==========================================================================
+   BLAKLETTERPRESS — XƯỞNG IN LETTERPRESS THỦ CÔNG TẠI HÀ NỘI
+   Modern, Artisanal & Fully Responsive CSS
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. GOOGLE FONTS & DESIGN TOKENS
+   -------------------------------------------------------------------------- */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+
+:root {
+	/* Color Palette - Artisanal & Letterpress Heritage */
+	--color-bg: #FAF7F2;              /* Warm craft paper canvas */
+	--color-surface: #FFFFFF;         /* Crisp card surface */
+	--color-surface-alt: #F4EFE6;     /* Subtle parchment tone */
+	--color-surface-hover: #F8F4EC;   /* Card hover tone */
+	--color-ink: #1C1815;             /* Deep letterpress black ink */
+	--color-ink-light: #4A443E;       /* Charcoal body text */
+	--color-ink-muted: #7E756B;       /* Secondary / captions */
+	--color-accent: #9E4624;          /* Warm terracotta / seal red */
+	--color-accent-hover: #7E3519;    /* Dark terracotta */
+	--color-gold: #C08A3E;            /* Warm bronze / metallic foil */
+	--color-gold-light: #F6EBD9;      /* Light gold tint */
+	--color-border: #E8E0D5;          /* Hairline paper border */
+	--color-border-dark: #D4C9BC;     /* Strong border */
+	--color-footer-bg: #181513;       /* Rich dark ink footer */
+	--color-footer-text: #BDB4A8;     /* Footer muted text */
+	--color-footer-heading: #E5D5C0;  /* Footer light heading */
+
+	/* Typography */
+	--font-heading: 'Playfair Display', 'Cinzel', 'Georgia', 'Times New Roman', serif;
+	--font-brand: 'Cinzel', 'Playfair Display', 'Georgia', serif;
+	--font-body: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+	/* Layout & Spacing */
+	--max-width: 1200px;
+	--header-height: 80px;
+	--radius-sm: 6px;
+	--radius-md: 12px;
+	--radius-lg: 18px;
+	--radius-pill: 9999px;
+
+	/* Shadows */
+	--shadow-sm: 0 2px 8px rgba(28, 24, 21, 0.04);
+	--shadow-md: 0 6px 20px rgba(28, 24, 21, 0.07);
+	--shadow-lg: 0 14px 36px rgba(28, 24, 21, 0.1);
+	--shadow-hover: 0 16px 32px rgba(158, 70, 36, 0.12);
+
+	/* Transitions */
+	--transition-fast: 0.2s ease;
+	--transition-normal: 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* --------------------------------------------------------------------------
+   2. RESET & BASE STYLES
+   -------------------------------------------------------------------------- */
+*, *::before, *::after {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+html {
+	font-size: 16px;
+	scroll-behavior: smooth;
+	scroll-padding-top: 100px;
+	-webkit-text-size-adjust: 100%;
+}
+
+body {
+	font-family: var(--font-body);
+	background-color: var(--color-bg);
+	color: var(--color-ink-light);
+	line-height: 1.7;
+	font-weight: 400;
+	background-image: 
+		radial-gradient(circle at 15% 15%, rgba(192, 138, 62, 0.04) 0%, transparent 40%),
+		radial-gradient(circle at 85% 85%, rgba(158, 70, 36, 0.04) 0%, transparent 40%);
+	background-attachment: fixed;
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+}
+
+img {
+	max-width: 100%;
+	height: auto;
+	display: block;
+}
+
+a {
+	color: var(--color-accent);
+	text-decoration: none;
+	transition: color var(--transition-fast), transform var(--transition-fast);
+}
+
+a:hover {
+	color: var(--color-accent-hover);
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+	outline: 2px solid var(--color-accent);
+	outline-offset: 3px;
+}
+
+/* Scroll margin for smooth anchor link scrolling */
+article, section {
+	scroll-margin-top: 105px;
+}
+
+/* --------------------------------------------------------------------------
+   3. SITE HEADER & NAVIGATION
+   -------------------------------------------------------------------------- */
+.site-header {
+	position: sticky;
+	top: 0;
+	z-index: 1000;
+	background-color: rgba(250, 247, 242, 0.95);
+	backdrop-filter: blur(12px);
+	-webkit-backdrop-filter: blur(12px);
+	border-bottom: 1px solid var(--color-border);
+	box-shadow: var(--shadow-sm);
+	padding: 1.1rem max(1.5rem, calc((100% - var(--max-width)) / 2 + 1.5rem));
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	gap: 0.75rem 2rem;
+	max-width: 100%;
+}
+
+/* Logo & Site Name */
+.site-name {
+	font-family: var(--font-brand);
+	font-size: 1.65rem;
+	font-weight: 800;
+	color: var(--color-ink);
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	position: relative;
+	transition: color var(--transition-normal);
+}
+
+.site-name::before {
+	content: "✦";
+	color: var(--color-gold);
+	font-size: 1rem;
+	transform: translateY(-1px);
+}
+
+.site-name:hover {
+	color: var(--color-accent);
+}
+
+/* Tagline */
+.tagline {
+	font-size: 0.85rem;
+	color: var(--color-ink-muted);
+	font-family: var(--font-heading);
+	font-style: italic;
+	letter-spacing: 0.04em;
+	margin: 0;
+	padding-left: 0.75rem;
+	border-left: 2px solid var(--color-gold);
+	display: inline-block;
+}
+
+/* Main Navigation */
+.main-nav {
+	margin-left: auto;
+}
+
+.main-nav ul {
+	display: flex;
+	align-items: center;
+	gap: 0.75rem;
+	list-style: none;
+	flex-wrap: wrap;
+}
+
+.main-nav a {
+	font-family: var(--font-body);
+	font-size: 0.92rem;
+	font-weight: 600;
+	color: var(--color-ink);
+	padding: 0.45rem 1rem;
+	border-radius: var(--radius-pill);
+	letter-spacing: 0.02em;
+	position: relative;
+	transition: all var(--transition-normal);
+}
+
+.main-nav a:hover {
+	color: var(--color-accent);
+	background-color: var(--color-surface-alt);
+}
+
+/* --------------------------------------------------------------------------
+   4. MAIN LAYOUT & CONTAINER
+   -------------------------------------------------------------------------- */
+.layout {
+	width: 100%;
+	max-width: var(--max-width);
+	margin: 0 auto;
+	padding: 2.5rem 1.5rem 4rem;
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) 340px;
+	gap: 3rem;
+	align-items: start;
+	flex: 1 0 auto;
+}
+
+main {
+	min-width: 0; /* Prevents overflow in CSS Grid */
+}
+
+/* --------------------------------------------------------------------------
+   5. ARTICLE: VỀ BLAKLETTERPRESS (HERO / INTRO)
+   -------------------------------------------------------------------------- */
+#gioi-thieu {
+	background-color: var(--color-surface);
+	border: 1px solid var(--color-border);
+	border-radius: var(--radius-lg);
+	padding: 2.25rem 2.5rem;
+	box-shadow: var(--shadow-sm);
+	margin-bottom: 3.5rem;
+	position: relative;
+	overflow: hidden;
+}
+
+#gioi-thieu::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 4px;
+	background: linear-gradient(90deg, var(--color-accent), var(--color-gold));
+}
+
+#gioi-thieu h1 {
+	font-family: var(--font-heading);
+	font-size: clamp(2rem, 4vw, 2.6rem);
+	font-weight: 700;
+	color: var(--color-ink);
+	line-height: 1.25;
+	margin-bottom: 1.75rem;
+	letter-spacing: -0.01em;
+}
+
+#gioi-thieu figure {
+	margin: 0 0 1.75rem 0;
+	border-radius: var(--radius-md);
+	overflow: hidden;
+	background-color: var(--color-surface-alt);
+	border: 1px solid var(--color-border);
+	box-shadow: var(--shadow-md);
+	transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+#gioi-thieu figure:hover {
+	transform: translateY(-3px);
+	box-shadow: var(--shadow-lg);
+}
+
+#gioi-thieu figure img {
+	width: 100%;
+	height: auto;
+	aspect-ratio: 16 / 9;
+	object-fit: cover;
+	transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+#gioi-thieu figure:hover img {
+	transform: scale(1.025);
+}
+
+#gioi-thieu figcaption {
+	padding: 0.85rem 1.25rem;
+	font-size: 0.88rem;
+	font-style: italic;
+	font-family: var(--font-heading);
+	color: var(--color-ink-muted);
+	background-color: var(--color-surface);
+	border-top: 1px solid var(--color-border);
+	text-align: center;
+}
+
+#gioi-thieu p {
+	font-size: 1.05rem;
+	line-height: 1.8;
+	color: var(--color-ink-light);
+	margin-bottom: 1.25rem;
+}
+
+#gioi-thieu p:last-child {
+	margin-bottom: 0;
+}
+
+#gioi-thieu strong {
+	color: var(--color-accent);
+	font-weight: 600;
+	padding: 0.1em 0.3em;
+	background-color: rgba(158, 70, 36, 0.07);
+	border-radius: var(--radius-sm);
+}
+
+/* --------------------------------------------------------------------------
+   6. SECTION HEADINGS (COMMON)
+   -------------------------------------------------------------------------- */
+main section {
+	margin-bottom: 3.5rem;
+}
+
+main section > h2 {
+	font-family: var(--font-heading);
+	font-size: clamp(1.6rem, 3vw, 2.1rem);
+	font-weight: 700;
+	color: var(--color-ink);
+	margin-bottom: 1.75rem;
+	position: relative;
+	display: inline-block;
+}
+
+main section > h2::after {
+	content: "";
+	display: block;
+	width: 48px;
+	height: 3px;
+	background: var(--color-accent);
+	margin-top: 0.5rem;
+	border-radius: 2px;
+}
+
+/* --------------------------------------------------------------------------
+   7. SECTION: GIÁ TRỊ CỐT LÕI (VALUE CARDS)
+   -------------------------------------------------------------------------- */
+.value-list {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 1.5rem;
+	list-style: none;
+	counter-reset: value-counter;
+}
+
+.value-card {
+	counter-increment: value-counter;
+	background-color: var(--color-surface);
+	border: 1px solid var(--color-border);
+	border-radius: var(--radius-md);
+	padding: 2rem 1.5rem;
+	box-shadow: var(--shadow-sm);
+	position: relative;
+	transition: all var(--transition-normal);
+	display: flex;
+	flex-direction: column;
+}
+
+.value-card::before {
+	content: "0" counter(value-counter);
+	font-family: var(--font-heading);
+	font-size: 2.2rem;
+	font-weight: 700;
+	color: var(--color-gold);
+	opacity: 0.45;
+	line-height: 1;
+	margin-bottom: 1rem;
+	display: inline-block;
+	transition: all var(--transition-fast);
+}
+
+.value-card:hover {
+	transform: translateY(-5px);
+	border-color: var(--color-gold);
+	box-shadow: var(--shadow-hover);
+}
+
+.value-card:hover::before {
+	opacity: 1;
+	transform: scale(1.05);
+}
+
+.value-card h3 {
+	font-family: var(--font-heading);
+	font-size: 1.3rem;
+	font-weight: 700;
+	color: var(--color-ink);
+	margin-bottom: 0.75rem;
+}
+
+.value-card p {
+	font-size: 0.95rem;
+	color: var(--color-ink-muted);
+	line-height: 1.65;
+	margin: 0;
+}
+
+/* --------------------------------------------------------------------------
+   8. SECTION: ĐỘI NGŨ (TEAM MEMBERS)
+   -------------------------------------------------------------------------- */
+.team-list {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 1.75rem;
+	list-style: none;
+}
+
+.member {
+	background-color: var(--color-surface);
+	border: 1px solid var(--color-border);
+	border-radius: var(--radius-lg);
+	padding: 2rem 1.25rem 1.75rem;
+	text-align: center;
+	box-shadow: var(--shadow-sm);
+	transition: all var(--transition-normal);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.member:hover {
+	transform: translateY(-5px);
+	border-color: var(--color-accent);
+	box-shadow: var(--shadow-hover);
+}
+
+.member img {
+	width: 128px;
+	height: 128px;
+	border-radius: 50%;
+	object-fit: cover;
+	margin-bottom: 1.25rem;
+	border: 3px solid var(--color-surface);
+	box-shadow: 0 0 0 2px var(--color-border), 0 6px 16px rgba(0,0,0,0.08);
+	transition: all var(--transition-normal);
+}
+
+.member:hover img {
+	transform: scale(1.06);
+	box-shadow: 0 0 0 3px var(--color-accent), 0 8px 20px rgba(158, 70, 36, 0.2);
+}
+
+.member h3 {
+	font-family: var(--font-heading);
+	font-size: 1.25rem;
+	font-weight: 700;
+	color: var(--color-ink);
+	margin-bottom: 0.4rem;
+}
+
+.member p {
+	font-size: 0.88rem;
+	color: var(--color-ink-muted);
+	line-height: 1.5;
+	margin: 0;
+	font-weight: 500;
+}
+
+/* --------------------------------------------------------------------------
+   9. SECTION: LIÊN HỆ (CONTACT FORM)
+   -------------------------------------------------------------------------- */
+.contact-form {
+	background-color: var(--color-surface);
+	border: 1px solid var(--color-border);
+	border-radius: var(--radius-lg);
+	padding: 2.25rem;
+	box-shadow: var(--shadow-sm);
+	position: relative;
+}
+
+.contact-form p {
+	margin-bottom: 1.35rem;
+}
+
+.contact-form p:last-child {
+	margin-bottom: 0;
+	margin-top: 1.5rem;
+}
+
+.contact-form label {
+	display: inline-block;
+	font-size: 0.88rem;
+	font-weight: 700;
+	color: var(--color-ink);
+	text-transform: uppercase;
+	letter-spacing: 0.06em;
+	margin-bottom: 0.45rem;
+}
+
+.contact-form input[type="text"],
+.contact-form input[type="email"],
+.contact-form textarea {
+	width: 100%;
+	padding: 0.85rem 1.1rem;
+	font-family: var(--font-body);
+	font-size: 0.95rem;
+	color: var(--color-ink);
+	background-color: var(--color-surface-alt);
+	border: 1.5px solid var(--color-border-dark);
+	border-radius: var(--radius-sm);
+	transition: all var(--transition-fast);
+}
+
+.contact-form textarea {
+	resize: vertical;
+	min-height: 110px;
+	line-height: 1.6;
+}
+
+.contact-form input[type="text"]:focus,
+.contact-form input[type="email"]:focus,
+.contact-form textarea:focus {
+	outline: none;
+	background-color: var(--color-surface);
+	border-color: var(--color-accent);
+	box-shadow: 0 0 0 3px rgba(158, 70, 36, 0.15);
+}
+
+.contact-form button[type="submit"] {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding: 0.85rem 2.2rem;
+	font-family: var(--font-body);
+	font-size: 0.95rem;
+	font-weight: 700;
+	letter-spacing: 0.05em;
+	text-transform: uppercase;
+	color: #FFFFFF;
+	background-color: var(--color-ink);
+	border: 1px solid var(--color-ink);
+	border-radius: var(--radius-pill);
+	cursor: pointer;
+	box-shadow: 0 4px 12px rgba(28, 24, 21, 0.15);
+	transition: all var(--transition-normal);
+}
+
+.contact-form button[type="submit"]:hover {
+	background-color: var(--color-accent);
+	border-color: var(--color-accent);
+	transform: translateY(-2px);
+	box-shadow: 0 6px 18px rgba(158, 70, 36, 0.25);
+}
+
+.contact-form button[type="submit"]:active {
+	transform: translateY(1px);
+	box-shadow: 0 2px 6px rgba(158, 70, 36, 0.2);
+}
+
+/* --------------------------------------------------------------------------
+   10. SIDEBAR
+   -------------------------------------------------------------------------- */
+.sidebar {
+	background-color: var(--color-surface);
+	border: 1px solid var(--color-border);
+	border-radius: var(--radius-lg);
+	padding: 2rem 1.75rem;
+	box-shadow: var(--shadow-sm);
+	position: sticky;
+	top: 105px;
+}
+
+.sidebar h2 {
+	font-family: var(--font-heading);
+	font-size: 1.35rem;
+	font-weight: 700;
+	color: var(--color-ink);
+	margin-bottom: 1.25rem;
+	padding-bottom: 0.75rem;
+	border-bottom: 2px solid var(--color-border);
+	position: relative;
+}
+
+.sidebar h2::after {
+	content: "";
+	position: absolute;
+	bottom: -2px;
+	left: 0;
+	width: 36px;
+	height: 2px;
+	background-color: var(--color-gold);
+}
+
+.sidebar .recent {
+	list-style: none;
+	margin-bottom: 1.75rem;
+}
+
+.sidebar .recent li {
+	padding: 0.75rem 0;
+	border-bottom: 1px dashed var(--color-border);
+}
+
+.sidebar .recent li:last-child {
+	border-bottom: none;
+}
+
+.sidebar .recent a {
+	color: var(--color-ink-light);
+	font-size: 0.94rem;
+	font-weight: 500;
+	line-height: 1.5;
+	display: flex;
+	align-items: flex-start;
+	gap: 0.5rem;
+	transition: all var(--transition-fast);
+}
+
+.sidebar .recent a::before {
+	content: "→";
+	color: var(--color-gold);
+	font-weight: 700;
+	transition: transform var(--transition-fast);
+}
+
+.sidebar .recent a:hover {
+	color: var(--color-accent);
+	transform: translateX(4px);
+}
+
+.sidebar .recent a:hover::before {
+	color: var(--color-accent);
+	transform: translateX(2px);
+}
+
+.sidebar > p {
+	font-size: 0.9rem;
+	color: var(--color-ink-muted);
+	background-color: var(--color-surface-alt);
+	padding: 0.9rem 1.1rem;
+	border-radius: var(--radius-md);
+	border-left: 3px solid #1877F2;
+	margin: 0;
+	line-height: 1.5;
+}
+
+.sidebar > p a {
+	color: #1877F2;
+	font-weight: 600;
+	text-decoration: underline;
+	text-underline-offset: 3px;
+}
+
+.sidebar > p a:hover {
+	color: #0d5cbf;
+}
+
+/* --------------------------------------------------------------------------
+   11. FOOTER
+   -------------------------------------------------------------------------- */
+.site-footer {
+	background-color: var(--color-footer-bg);
+	color: var(--color-footer-text);
+	border-top: 3px solid var(--color-gold);
+	padding-top: 3.5rem;
+	padding-bottom: 2rem;
+	margin-top: auto;
+}
+
+.footer-cols {
+	max-width: var(--max-width);
+	margin: 0 auto;
+	padding: 0 1.5rem 3rem;
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 2.5rem;
+	list-style: none;
+}
+
+.footer-cols li {
+	display: flex;
+	flex-direction: column;
+}
+
+.footer-cols h3 {
+	font-family: var(--font-heading);
+	font-size: 1.15rem;
+	font-weight: 700;
+	color: var(--color-footer-heading);
+	letter-spacing: 0.03em;
+	margin-bottom: 1rem;
+	position: relative;
+	padding-bottom: 0.5rem;
+}
+
+.footer-cols h3::after {
+	content: "";
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 28px;
+	height: 1.5px;
+	background-color: var(--color-gold);
+}
+
+.footer-cols p {
+	font-size: 0.9rem;
+	line-height: 1.7;
+	color: var(--color-footer-text);
+	margin: 0;
+}
+
+.copyright {
+	max-width: var(--max-width);
+	margin: 0 auto;
+	padding: 1.5rem 1.5rem 0;
+	border-top: 1px solid rgba(255, 255, 255, 0.08);
+	text-align: center;
+	color: #7A7268;
+}
+
+.copyright small {
+	font-size: 0.85rem;
+}
+
+/* --------------------------------------------------------------------------
+   12. RESPONSIVE DESIGN (MEDIA QUERIES)
+   -------------------------------------------------------------------------- */
+
+/* Tablet & Smaller Laptops (<= 1024px) */
+@media (max-width: 1024px) {
+	.layout {
+		grid-template-columns: minmax(0, 1fr) 280px;
+		gap: 2rem;
+		padding: 2rem 1.25rem 3rem;
+	}
+
+	.footer-cols {
+		grid-template-columns: repeat(2, 1fr);
+		gap: 2rem;
+	}
+}
+
+/* Tablet Portrait & Mobile (<= 840px) */
+@media (max-width: 840px) {
+	.site-header {
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 0.75rem;
+		padding: 1rem 1.25rem;
+	}
+
+	.tagline {
+		padding-left: 0;
+		border-left: none;
+		display: block;
+		margin-top: 0.25rem;
+	}
+
+	.main-nav {
+		margin-left: 0;
+		width: 100%;
+		overflow-x: auto;
+		padding-bottom: 0.25rem;
+	}
+
+	.main-nav ul {
+		width: max-content;
+		gap: 0.35rem;
+	}
+
+	.layout {
+		grid-template-columns: 1fr;
+		gap: 2.5rem;
+	}
+
+	.sidebar {
+		position: static;
+		margin-top: 1rem;
+	}
+
+	.value-list {
+		grid-template-columns: repeat(2, 1fr);
+	}
+
+	.team-list {
+		grid-template-columns: repeat(2, 1fr);
+	}
+}
+
+/* Small Screens & Mobile (<= 560px) */
+@media (max-width: 560px) {
+	#gioi-thieu {
+		padding: 1.5rem 1.25rem;
+	}
+
+	.value-list {
+		grid-template-columns: 1fr;
+	}
+
+	.team-list {
+		grid-template-columns: 1fr;
+	}
+
+	.footer-cols {
+		grid-template-columns: 1fr;
+		gap: 1.75rem;
+	}
+
+	.contact-form {
+		padding: 1.5rem 1.25rem;
+	}
+
+	.contact-form button[type="submit"] {
+		width: 100%;
+	}
+}
+
+/* --------------------------------------------------------------------------
+   13. PRINT STYLES
+   -------------------------------------------------------------------------- */
+@media print {
+	.site-header,
+	.sidebar,
+	.contact-form,
+	.site-footer {
+		display: none !important;
+	}
+
+	body {
+		background: #FFF;
+		color: #000;
+	}
+
+	.layout {
+		display: block;
+		padding: 0;
+	}
+
+	#gioi-thieu,
+	.value-card,
+	.member {
+		border: 1px solid #CCC;
+		box-shadow: none;
+		page-break-inside: avoid;
+	}
+}
